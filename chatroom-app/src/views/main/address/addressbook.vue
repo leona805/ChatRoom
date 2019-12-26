@@ -1,6 +1,6 @@
 <!--登陆成功页面-->
 <template>
-  <div class="mian">
+  <div class="addressBook">
     address
   </div>
 </template>

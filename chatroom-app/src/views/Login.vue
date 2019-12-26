@@ -1,6 +1,6 @@
 <!--登陆页面-->
 <template>
-  <div class="main_container">
+  <div class="login">
     <div class="hello">
       <span>登录</span>
     </div>
@@ -31,6 +31,7 @@
 <script>
 // import login from '@store/store';
 import axios from 'axios'
+import store from '../store/index'
 export default {
   name: 'Login',
   data () {
@@ -59,7 +60,11 @@ export default {
       let flag = false;//flag判断账号密码是否输入正确
       this.userData.length > 0 && this.userData.map(p => {
         if (p.account === this.item.account && p.password === this.item.password) {
-          this.$router.push('/main')
+          localStorage.setItem('account', p.account)// 保存当前登陆的账号信息
+          this.$router.push('/main') //路由跳转
+          if (p.allData) {
+            store.currentCountData = p.allData; //保存当前账号的所有内部信息
+          }
           flag = true;
         }
       })
@@ -72,7 +77,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped='scoped' lang='less'>
-.main_container {
+.login {
   .hello {
     height: 2.5rem;
     text-align: center;
