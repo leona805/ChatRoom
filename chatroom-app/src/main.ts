@@ -5,6 +5,8 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+require('./mock/mock.ts')
+
 new Vue({
   router,
   store,
