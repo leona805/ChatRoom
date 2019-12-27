@@ -20,9 +20,13 @@
         <span>{{item.ExistingInformation[item.ExistingInformation.length-1].message}}</span>
       </div>
 
-      <!--未读显示-->
+      <!--时间显示-->
+      <div class="time">
+        <span>{{item.ExistingInformation[item.ExistingInformation.length-1].time}}</span>
+      </div>
+      <!--未读显示           优化可做免提醒灰色显示-->
       <div class="Unread">
-        {{item.state}}
+        <span>{{item.state}}</span>
       </div>
     </div>
 
@@ -102,8 +106,18 @@ export default {
         color: #ccc;
       }
     }
-    .Unread { 
-      color: red;
+    .time {
+      >span {
+        color: #ccc;
+      }
+    }
+    .Unread {
+      width: 1rem;
+      height: 1rem;
+      background-color: red;
+      >span {
+        color: white;
+      }
     }
   }
 }
