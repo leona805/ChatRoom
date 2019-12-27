@@ -25,6 +25,9 @@
     <div class="login">
       <button @click="this.login">登录</button>
     </div>
+    <div class="corpright">
+      <span>微聊天室weChatRoom v1.0</span>
+    </div>
   </div>
 </template>
 
@@ -140,6 +143,17 @@ export default {
       background-color: rgb(8, 182, 235);
       color: white;
       font-size: 1.2rem;
+    }
+  }
+  .corpright {
+    display: flex;
+    justify-content: center;
+    span {
+      font-size: 0.5rem;
+      color: #ccc;
+      height: 1rem;
+      position: absolute;
+      bottom: 0;
     }
   }
 }

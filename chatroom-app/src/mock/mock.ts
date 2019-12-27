@@ -18,7 +18,10 @@ Data.push({
     // Nickname: '诗茵', //昵称这一块可以放在我的信息里
     chatList: [
       {
-        name: '小明', ExistingInformation: [
+        name: '小明',
+        img: '小明.jpg',
+        state: 2,//state：已读未读状态  自己发的信息也可以标成未读（参考qq）已读标记0
+        ExistingInformation: [
           { name: '小明', time: '2019-12-25 10:48:12', message: '诗茵,在吗' },
           { name: '诗茵', time: '2019-12-25 10:48:16', message: '在的,怎么了' },// 昵称需要注意
           { name: '小明', time: '2019-12-25 10:48:18', message: '明天一起去图书馆学习' },
@@ -26,9 +29,12 @@ Data.push({
         ]
       },
       {
-        name: '小红', ExistingInformation: [
+        name: '小红',
+        img: '小红.jpg',
+        state: 0,
+        ExistingInformation: [
           { name: '小红', time: '2019-12-25 10:48:12', message: '你好,诗茵,在吗' },
-          { name: '诗茵', time: '2019-12-25 10:48:16', message: '有事,下次聊' }
+          { name: '诗茵', time: '2019-12-25 10:48:16', message: '在的，但是我现在有些事情要处理，你有什么重要的事情吗' }
         ]
       }
     ]

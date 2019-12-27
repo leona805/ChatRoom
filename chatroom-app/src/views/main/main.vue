@@ -33,6 +33,7 @@ export default {
 
 <style scoped lang='less'>
 .main {
+  height: 100%;
   .title {
     height: 2.5rem;
     text-align: center;
@@ -42,7 +43,9 @@ export default {
       color: white;
     }
   }
-
+  .content {
+    height: calc(100% - 5rem);
+  }
   .footer {
     width: 100%;
     height: 2.5rem;
