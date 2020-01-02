@@ -49,6 +49,7 @@ export default {
   },
   // created:vue生命周期中的钩子函数，在这个时间点，data中的数据已经注入到响应式系统中
   created () {
+    if (localStorage.account) this.item.account = localStorage.account;
     axios.post('/api/login')
       .then((res) => {
         if (res.status === 200) {
@@ -67,6 +68,7 @@ export default {
           this.$router.push('/main') //路由跳转
           if (p.allData) {
             store.currentCountData = p.allData; //保存当前账号的所有内部信息
+            sessionStorage.setItem(`currentCountData`, JSON.stringify(p.allData))
           }
           flag = true;
         }

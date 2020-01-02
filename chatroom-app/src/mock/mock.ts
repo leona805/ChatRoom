@@ -19,6 +19,7 @@ Data.push({
     chatList: [
       {
         name: '小明',
+        id: 1,//最好通过唯一的id去判断聊天框
         img: '小明.jpg',
         state: 2,//state：已读未读状态  自己发的信息也可以标成未读（参考qq）已读标记0
         ExistingInformation: [
@@ -30,11 +31,22 @@ Data.push({
       },
       {
         name: '小红',
+        id: 2,
         img: '小红.jpg',
         state: 0,
         ExistingInformation: [
-          { name: '小红', time: '2019-12-25 10:48:12', message: '你好,诗茵,在吗' },
-          { name: '诗茵', time: '2019-12-25 10:48:16', message: '在的，但是我现在有些事情要处理，你有什么重要的事情吗' }
+          { name: '小红', time: '2019-12-25 18:48:12', message: '你好,诗茵,在吗' },
+          { name: '诗茵', time: '2019-12-25 20:48:16', message: '在的，但是我现在有些事情要处理，你有什么重要的事情吗' }
+        ]
+      },
+      {
+        name: '小小',
+        id: 3,
+        img: 'UI.jpg',
+        state: 1,
+        ExistingInformation: [
+          { name: '小小', time: '2019-12-25 23:48:12', message: '你好,诗茵,在吗' },
+          { name: '诗茵', time: '2019-12-25 1:48:16', message: '在的，但是我现在有些事情要处理，你有什么重要的事情吗' }
         ]
       }
     ]

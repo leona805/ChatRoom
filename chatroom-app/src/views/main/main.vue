@@ -17,7 +17,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Main',
   data () {
@@ -45,6 +44,7 @@ export default {
   }
   .content {
     height: calc(100% - 5rem);
+    overflow: hidden;
   }
   .footer {
     width: 100%;

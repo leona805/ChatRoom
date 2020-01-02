@@ -11,9 +11,8 @@
       >
         <div
           class="list-box"
-          @touchstart="touchStart"
-          @touchend="touchEnd"
-          @touchmove="touchmove"
+          @touchstart.capture="touchStart"
+          @touchend.capture="touchEnd"
           @click="skip"
         >
           <img
@@ -86,33 +85,21 @@ export default {
       // 记录初始位置
       this.startX = e.touches[0].clientX;
     },
-    touchmove (e) {
-      let width = document.getElementsByClassName('delete')[0].offsetWidth;
-      let right = this.startX - e.changedTouches[0].clientX;
-      if (right > width) right = width;
-      if (right < 0) right = 0;
-      right = -right + 'px';
-      let parentElement = e.currentTarget.parentElement;
-      parentElement.style.WebkitTransform = `translate3d(${right}, 0, 0)`;
-    },
     //滑动结束
     touchEnd (e) {
       // 当前滑动的父级元素
       let parentElement = e.currentTarget.parentElement;
-      let width = -document.getElementsByClassName('delete')[0].offsetWidth + 'px';
       // 记录结束位置
       this.endX = e.changedTouches[0].clientX;
       // 左滑
-      if (parentElement.dataset.type == 0 && this.startX - this.endX > 1) {
+      if (parentElement.dataset.type == 0 && this.startX - this.endX > 30) {
         this.restSlide();
         parentElement.dataset.type = 1;
-        parentElement.style.WebkitTransform = `translate3d(${width}, 0, 0)`;
       }
       // 右滑
-      if (parentElement.dataset.type == 1 && this.startX - this.endX < -1) {
+      if (parentElement.dataset.type == 1 && this.startX - this.endX < -30) {
         this.restSlide();
         parentElement.dataset.type = 0;
-        parentElement.style.WebkitTransform = `translate3d(0px, 0, 0)`;
       }
       this.startX = 0;
       this.endX = 0;
@@ -121,7 +108,6 @@ export default {
     checkSlide () {
       let listItems = document.querySelectorAll('.list-item');
       for (let i = 0; i < listItems.length; i++) {
-        console.log(listItems[i].dataset.type)
         if (listItems[i].dataset.type == 1) {
           return true;
         }
@@ -134,7 +120,6 @@ export default {
       // 复位
       for (let i = 0; i < listItems.length; i++) {
         listItems[i].dataset.type = 0;
-        listItems[i].style.WebkitTransform = `translate3d(0px, 0, 0)`;
       }
     },
     //删除
@@ -173,9 +158,8 @@ export default {
   z-index: 2;
 }
 .list-item {
-  list-style: none;
   position: relative;
-  height: 4rem;
+  height: 1.6rem;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
