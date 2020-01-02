@@ -66,6 +66,9 @@ export default {
             if (res.data.User[0].allData) {
               store.currentCountData = res.data.User[0].allData; //保存当前账号的所有内部信息
               sessionStorage.setItem(`currentCountData`, JSON.stringify(res.data.User[0].allData))
+            } else {
+              store.currentCountData = []; //保存当前账号的所有内部信息
+              sessionStorage.setItem(`currentCountData`, JSON.stringify([]))
             }
           } else {
             this.item.password = '';

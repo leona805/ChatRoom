@@ -8,7 +8,7 @@
     <div
       class="message_container .transtion"
       v-for="(item) in data.chatList"
-      :key="item.id"
+      :key="item.account"
     >
       <!--滑动-->
       <div
@@ -26,7 +26,7 @@
         </div>
         <div class="showNickname">
           <!--昵称显示-->
-          <p>{{item.name}}</p>
+          <p>{{item.Nickname}}</p>
           <!--最后一条聊天记录显示-->
           <span>{{item.ExistingInformation[item.ExistingInformation.length-1].message}}</span>
         </div>
@@ -47,7 +47,7 @@
         <!--左滑删除\置顶功能-->
         <div
           class="delete"
-          @click="deleteItem"
+          @click="deleteItem(item)"
         >
           <span>删除</span>
         </div>
@@ -169,7 +169,20 @@ export default {
     },
     //删除
     deleteItem (e) {
-
+      console.log(e)
+      axios.post('/api/MessageListDelete', {
+        params: {
+          // account: localStorage.account,
+          data: e.account
+        }
+      })
+        .then((res) => {
+            console.log(res)
+          if (res.status === 200) {
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
     }
   }
 }
