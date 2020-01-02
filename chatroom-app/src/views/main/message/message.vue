@@ -67,8 +67,30 @@ export default {
       endX: 0,
     }
   },
+  beforeCreate() {
+    console.log(this.$store)
+  },
   created () {
+    console.log(this.$store)
     this.data = this.$store.currentCountData ? this.$store.currentCountData : JSON.parse(sessionStorage.currentCountData);
+  },
+  beforeMount() {
+    console.log(this.$store)
+  },
+  mounted() {
+    console.log(this.$store)
+  },
+  beforeUpdate() {
+    console.log(this.$store)
+  },
+  updated() {
+    console.log(this.$store)
+  },
+  beforeDestroy() {
+    console.log(this.$store)
+  },
+  destroyed() {
+    console.log(this.$store)
   },
   methods: {
     //返回img的url地址
@@ -169,16 +191,17 @@ export default {
     },
     //删除
     deleteItem (e) {
-      console.log(e)
       axios.post('/api/MessageListDelete', {
         params: {
-          // account: localStorage.account,
+          account: localStorage.account,
           data: e.account
         }
       })
         .then((res) => {
-            console.log(res)
+          console.log(res)
           if (res.status === 200) {
+            this.$store.currentCountData = res.data.Data[0].allData; //保存当前账号的所有内部信息
+            sessionStorage.setItem(`currentCountData`, JSON.stringify(res.data.Data[0].allData))
           }
         }).catch(function (error) {
           console.log(error)

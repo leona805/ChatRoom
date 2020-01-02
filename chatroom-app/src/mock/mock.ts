@@ -77,11 +77,11 @@ Data.push({
   },
 })
 
-var User = [];
 // 登陆验证操作
 let login = function (data) {
   let status = { status: 200, message: 'success' };
   let rtype = data.type.toLowerCase() // 获取请求的类型并转换为小写
+  let User = JSON.parse(JSON.stringify(Data))
   switch (rtype) {
     case 'get':
       break
@@ -89,10 +89,10 @@ let login = function (data) {
       let account = parseInt(JSON.parse(data.body).params.account) // 获取请求的id，将options.body转换为JSON对象
       let password = parseInt(JSON.parse(data.body).params.password) // 获取请求的id，将options.body转换为JSON对象
       let flag = false;
-      Data.filter(function (val) {
+      User = User.filter(function (val) {
         if (JSON.parse(val.account) === account && JSON.parse(val.password) === password) {
           flag = true;
-          User = val// 账户和密码相等，返回所有子数据
+          return val// 账户和密码相等，返回所有子数据
         }
       })
       if (!flag) {
@@ -113,22 +113,35 @@ Mock.mock('/api/login', 'post', login)
 // 消息框数据的删除操作
 let deleteMessageList = function (data) {
   let rtype = data.type.toLowerCase() // 获取请求的类型并转换为小写
+  let User = [];
   switch (rtype) {
     case 'get':
       break
     case 'post':
-      // let account = parseInt(JSON.parse(data.body).params.account)
+      let account = parseInt(JSON.parse(data.body).params.account);
       let deletedata = parseInt(JSON.parse(data.body).params.data);
-      User.filter(function (val) {
-        val.allData && val.allData.chatList
-
+      Data.filter(function (val) {
+        let _data = [];
+        if(JSON.parse(val.account) === account){
+          val.allData.chatList.map((p)=>{
+            if(deletedata !== p.account) {
+              _data.push(p)
+            }
+          })
+          val.allData.chatList = _data
+        }
+      })
+      Data.filter(function (val) {
+        if(JSON.parse(val.account) === account){
+          User.push(val)
+        }
       })
       break
     default:
       break
   }
   return {
-    User
+    Data:User
   }
 }
 Mock.mock('/api/MessageListDelete', 'post', deleteMessageList)
