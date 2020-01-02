@@ -47,34 +47,33 @@ export default {
       }
     }
   },
-  // created:vue生命周期中的钩子函数，在这个时间点，data中的数据已经注入到响应式系统中
   created () {
     if (localStorage.account) this.item.account = localStorage.account;
-    axios.post('/api/login')
-      .then((res) => {
-        if (res.status === 200) {
-          this.userData = res.data
-        }
-      }).catch(function (error) {
-        console.log(error)
-      })
   },
   methods: {
     login: function () {
-      let flag = false;//flag判断账号密码是否输入正确
-      this.userData.length > 0 && this.userData.map(p => {
-        if (p.account === this.item.account && p.password === this.item.password) {
-          localStorage.setItem('account', p.account)// 保存当前登陆的账号信息
-          this.$router.push('/main') //路由跳转
-          if (p.allData) {
-            store.currentCountData = p.allData; //保存当前账号的所有内部信息
-            sessionStorage.setItem(`currentCountData`, JSON.stringify(p.allData))
-          }
-          flag = true;
+      axios.post('/api/login', {
+        params: {
+          account: this.item.account,
+          password: this.item.password
         }
       })
-      if (!flag)
-        alert('账号或密码输入错误')
+        .then((res) => {
+          if (res.data.status.status === 200) {
+            localStorage.setItem('account', res.data.User[0].account)// 保存当前登陆的账号信息
+            this.$router.push('/main') //路由跳转
+            this.userData = res.data.User;
+            if (res.data.User[0].allData) {
+              store.currentCountData = res.data.User[0].allData; //保存当前账号的所有内部信息
+              sessionStorage.setItem(`currentCountData`, JSON.stringify(res.data.User[0].allData))
+            }
+          } else {
+            this.item.password = '';
+            alert(res.data.status.message)
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
     }
   }
 }

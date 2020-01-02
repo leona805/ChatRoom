@@ -11,7 +11,6 @@ for (let i = 0; i < 10; i++) {
   })
   Data.push(userLoginData)//随机生成的数据,没有allData属性
 }
-
 Data.push({
   account: '123456', password: '123456',
   allData: {
@@ -57,8 +56,40 @@ Data.push({
   myself: [
 
   ]
-}) //测试数据
-Mock.mock('/api/login', 'post', Data)
+})
+
+// 登陆验证操作
+let login = function (data) {
+  let status = { status: 200, message: 'success' };
+  let rtype = data.type.toLowerCase() // 获取请求的类型并转换为小写
+  let User = JSON.parse(JSON.stringify(Data))
+  switch (rtype) {
+    case 'get':
+      break
+    case 'post':
+      let account = parseInt(JSON.parse(data.body).params.account) // 获取请求的id，将options.body转换为JSON对象
+      let password = parseInt(JSON.parse(data.body).params.password) // 获取请求的id，将options.body转换为JSON对象
+      let flag = false;
+      User = User.filter(function (val) {
+        if (JSON.parse(val.account) === account && JSON.parse(val.password) === password) {
+          flag = true;
+          return val// 账户和密码相等，返回所有子数据
+        }
+      })
+      if (!flag) {
+        status = {
+          status: 201, message: '账号密码验证失败'
+        }
+      }
+      break
+    default:
+      break
+  }
+  return {
+    User, status
+  }
+}
+Mock.mock('/api/login', 'post', login)
 
 // 数据的删除操作
 let deleteList = function (data) {
