@@ -5,7 +5,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    currentCountData: sessionStorage.getItem('currentCountData')||{}
+    title:sessionStorage.getItem('title')||{},
+    currentCountData: sessionStorage.getItem('currentCountData')||{},
+    currentChat: sessionStorage.getItem('currentChat')||{}
   },
   mutations: {
   },

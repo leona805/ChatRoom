@@ -17,6 +17,10 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
+  created () {
+    this.$store.title = '个人中心'; //标题
+    sessionStorage.setItem(`title`, '个人中心')
+  },
   methods: {
     delete: function () {//删除注销账号操作,
       axios.post('/api/UserDelete', {

@@ -63,6 +63,8 @@ export default {
             localStorage.setItem('account', res.data.User[0].account)// 保存当前登陆的账号信息
             this.$router.push('/main') //路由跳转
             this.userData = res.data.User;
+            store.title = '微聊天室'; //标题
+            sessionStorage.setItem(`title`, '微聊天室')
             if (res.data.User[0].allData) {
               store.currentCountData = res.data.User[0].allData; //保存当前账号的所有内部信息
               sessionStorage.setItem(`currentCountData`, JSON.stringify(res.data.User[0].allData))

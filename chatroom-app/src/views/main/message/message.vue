@@ -9,6 +9,7 @@
       class="message_container .transtion"
       v-for="(item) in data.chatList"
       :key="item.account"
+      v-cloak
     >
       <!--滑动-->
       <div
@@ -16,7 +17,7 @@
         @touchstart="touchStart"
         @touchend="touchEnd"
         @touchmove="touchmove"
-        @click="skip"
+        @click="skip(item)"
       >
         <!--头像显示-->
         <div class="headPortrait">
@@ -47,7 +48,7 @@
         <!--左滑删除\置顶功能-->
         <div
           class="delete"
-          @click="deleteItem(item)"
+          @click.stop="deleteItem(item)"
         >
           <span>删除</span>
         </div>
@@ -67,30 +68,10 @@ export default {
       endX: 0,
     }
   },
-  beforeCreate() {
-    console.log(this.$store)
-  },
   created () {
-    console.log(this.$store)
+    this.$store.title = '微聊天室'; //标题
+    sessionStorage.setItem(`title`, '微聊天室')
     this.data = this.$store.currentCountData ? this.$store.currentCountData : JSON.parse(sessionStorage.currentCountData);
-  },
-  beforeMount() {
-    console.log(this.$store)
-  },
-  mounted() {
-    console.log(this.$store)
-  },
-  beforeUpdate() {
-    console.log(this.$store)
-  },
-  updated() {
-    console.log(this.$store)
-  },
-  beforeDestroy() {
-    console.log(this.$store)
-  },
-  destroyed() {
-    console.log(this.$store)
   },
   methods: {
     //返回img的url地址
@@ -123,11 +104,13 @@ export default {
       }
     },
     //跳转
-    skip () {
+    skip (item) {
       if (this.checkSlide()) {
         this.restSlide();
       } else {
-        console.log('You click the slide!')
+        this.$store.currentChat = item; //保存当前账号的所有内部信息
+        sessionStorage.setItem(`currentChat`, JSON.stringify(item))
+        this.$router.push('/chatroom') //路由跳转
       }
     },
     //滑动开始
@@ -198,8 +181,8 @@ export default {
         }
       })
         .then((res) => {
-          console.log(res)
           if (res.status === 200) {
+            this.data = res.data.Data[0].allData;
             this.$store.currentCountData = res.data.Data[0].allData; //保存当前账号的所有内部信息
             sessionStorage.setItem(`currentCountData`, JSON.stringify(res.data.Data[0].allData))
           }

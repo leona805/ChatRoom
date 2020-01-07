@@ -72,6 +72,10 @@ export default {
       endX: 0,
     }
   },
+  created () {
+    this.$store.title = '通讯录'; //标题
+    sessionStorage.setItem(`title`, '通讯录')
+  },
   methods: {
     //跳转
     skip () {

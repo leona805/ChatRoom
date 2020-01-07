@@ -1,34 +1,33 @@
 <!--登陆成功页面-->
 <template>
-  <div class="main">
+  <div class="chatRoom">
     <div class="title">
-      <span>{{this.data}}</span>
-      <div></div>
+      <img src="../../assets/back.png">
+      <span>{{this.data.Nickname}}</span>
+      <div class="function">
+
+      </div>
     </div>
     <div class="content">
-      <router-view />
+
     </div>
     <div class="footer">
-      <router-link to="/main/message">消息</router-link>
-      <router-link to="/main/addressBook">通讯录</router-link>
-      <router-link to="/main/myself">我</router-link>
+
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Main',
+  name: 'ChatRoom',
   data () {
     return {
-      data:''
+      data:{}
     }
   },
-  created () {
-    this.data = this.$store.title ? this.$store.title: sessionStorage.getItem('title')
-  },
-  updated() {
-    this.data = this.$store.title ? this.$store.title: sessionStorage.getItem('title')
+  created() {
+    this.data = this.$store.currentChat ? this.$store.currentChat : sessionStorage.getItem('currentChat')
+    console.log(this.$store)
   },
   methods: {
 
@@ -37,15 +36,32 @@ export default {
 </script>
 
 <style scoped lang='less'>
-.main {
+.chatRoom {
   height: 100%;
   .title {
     height: 2.5rem;
-    text-align: center;
     line-height: 2.5rem;
     background-color: rgb(8, 182, 235);
+    position: relative;
+    text-align: center;
+    > img {
+      width: 2rem;
+      height: 2rem;
+      position: absolute;
+      left: 0;
+      top: 0.25rem;
+    }
     > span {
       color: white;
+    }
+    .function {
+      width: 5rem;
+      height: 2rem;
+      border-radius: 25px;
+      background-color:rgba(47, 97, 173, 0.356); 
+      position: absolute;
+      right: 0.5rem;
+      top: 0.25rem;
     }
   }
   .content {

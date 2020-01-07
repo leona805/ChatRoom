@@ -5,6 +5,7 @@ import Main from '../views/main/main.vue';
 import Message from '../views/main/message/message.vue';
 import AddressBook from '../views/main/address/addressbook.vue';
 import Myself from '../views/main/myself/myself.vue';
+import ChatRoom from '../views/chatRoom/index.vue';
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,11 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/chatroom',
+    name: 'chatroom',
+    component: ChatRoom
   },
   {
     path: '/main',
@@ -26,17 +32,17 @@ const routes = [
         component: Message
       },
       {
-        path: 'AddressBook',
+        path: 'addressBook',
         name: 'AddressBook',
         component: AddressBook
       },
       {
-        path: 'Myself',
+        path: 'myself',
         name: 'Myself',
         component: Myself
-      }
+      },
     ]
-  }
+  },
 ];
 
 const router = new VueRouter({
