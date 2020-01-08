@@ -108,7 +108,7 @@ export default {
       if (this.checkSlide()) {
         this.restSlide();
       } else {
-        this.$store.currentChat = item; //保存当前账号的所有内部信息
+        this.$store.currentChat = item; //保存当前点击的聊天信息
         sessionStorage.setItem(`currentChat`, JSON.stringify(item))
         this.$router.push('/chatroom') //路由跳转
       }

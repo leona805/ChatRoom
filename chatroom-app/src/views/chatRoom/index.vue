@@ -2,7 +2,10 @@
 <template>
   <div class="chatRoom">
     <div class="title">
-      <img src="../../assets/back.png">
+      <img
+        src="../../assets/back.png"
+        @click="back"
+      >
       <span>{{this.data.Nickname}}</span>
       <div class="function">
 
@@ -22,15 +25,19 @@ export default {
   name: 'ChatRoom',
   data () {
     return {
-      data:{}
+      data: {},
     }
   },
-  created() {
-    this.data = this.$store.currentChat ? this.$store.currentChat : sessionStorage.getItem('currentChat')
-    console.log(this.$store)
+  created () {
+    console.log(this.$store.currentChat,sessionStorage)
+    this.data = this.$store.currentChat ? this.$store.currentChat : JSON.parse(sessionStorage.getItem('currentChat'))
+    // let data = this.$store.currentCountData ? this.$store.currentCountData : JSON.parse(sessionStorage.getItem('currentCountData'));
+
   },
   methods: {
-
+    back () {
+      this.$router.push('/main/message')
+    }
   }
 }
 </script>
@@ -58,7 +65,7 @@ export default {
       width: 5rem;
       height: 2rem;
       border-radius: 25px;
-      background-color:rgba(47, 97, 173, 0.356); 
+      background-color: rgba(47, 97, 173, 0.356);
       position: absolute;
       right: 0.5rem;
       top: 0.25rem;

@@ -122,9 +122,9 @@ let deleteMessageList = function (data) {
       let deletedata = parseInt(JSON.parse(data.body).params.data);
       Data.filter(function (val) {
         let _data = [];
-        if(JSON.parse(val.account) === account){
-          val.allData.chatList.map((p)=>{
-            if(deletedata !== p.account) {
+        if (JSON.parse(val.account) === account) {
+          val.allData.chatList.map((p) => {
+            if (deletedata !== p.account) {
               _data.push(p)
             }
           })
@@ -132,7 +132,7 @@ let deleteMessageList = function (data) {
         }
       })
       Data.filter(function (val) {
-        if(JSON.parse(val.account) === account){
+        if (JSON.parse(val.account) === account) {
           User.push(val)
         }
       })
@@ -141,10 +141,45 @@ let deleteMessageList = function (data) {
       break
   }
   return {
-    Data:User
+    Data: User
   }
 }
 Mock.mock('/api/MessageListDelete', 'post', deleteMessageList)
+
+//点击聊天框删除未读
+let deleteState = function (data) {
+  let rtype = data.type.toLowerCase() // 获取请求的类型并转换为小写
+  let User = [];
+  switch (rtype) {
+    case 'get':
+      break
+    case 'post':
+      let account = parseInt(JSON.parse(data.body).params.account) // 获取请求的id，将options.body转换为JSON对象
+      let deletedata = parseInt(JSON.parse(data.body).params.data);
+      Data.filter(function (val) {
+        let _data = [];
+        if (JSON.parse(val.account) === account) {
+          val.allData.chatList.map((p) => {
+            if (deletedata !== p.account) {
+              _data.push(p)
+            }
+          })
+          val.allData.chatList = _data
+        }
+      })
+      Data.filter(function (val) {
+        if (JSON.parse(val.account) === account) {
+          User.push(val)
+        }
+      })
+      break
+    default:
+      break
+  }
+  return {
+    Data
+  }
+}
 
 // 账号的注销操作
 let deleteList = function (data) {
